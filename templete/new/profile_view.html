@@ -1,0 +1,51 @@
+{% extends 'basic.html' %}
+{% block title %} Profile View  {% endblock %}
+{% block body %}
+
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-6">
+      <div class="card">
+        <div class="card-body">
+<div class="container">
+  <div class="row">
+    <h5 class="card-title text-center">Profile View</h5><br><br>
+    <div class="col">
+      <img class="w-50 rounded rounded-circle img-thumbnail" src="{{user.userprofile_model.image.url}}" />
+    </div>
+    <div class="col">
+      <div class="data">
+                name =  {{user.username}} <br>
+                birth_date =  {{user.userprofile_model.birth_date}} <br>
+                gender =  {{user.userprofile_model.gender}} <br>
+                blood_group =  {{user.userprofile_model.blood_group}} <br>
+                address =  {{user.userprofile_model.address}} <br>
+                phone =  {{user.userprofile_model.phone}}<br>
+                nationality =  {{user.userprofile_model.nationality}}<br>
+                religion =  {{user.userprofile_model.religion}}<br>
+                biodata =  {{user.userprofile_model.biodata}}<br>
+                profession =  {{user.userprofile_model.profession}} <br>
+                <button class="btn btn-primary"><a style="color: white;" href="/profileapp/tuitionbd/">Tuition Profile Create</a></button>
+            </div>
+
+    </div>
+
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+            
+            
+
+        
+            
+            
+
+  
+
+{% endblock body%}

@@ -1,0 +1,17 @@
+{% extends 'basic.html'%}
+{% block title %} Picture add {% endblock %}
+{% block body %}
+<div class="col-md-6 offset-md-3">
+{% if user.is_authenticated %}
+<form action="/post/picadd/{{id}}" method="POST" enctype="multipart/form-data">
+    
+    {% csrf_token %}
+    {% load crispy_forms_tags %}
+    <legend>Add New Photo</legend>
+    {{form | crispy}}
+    <button type="submit" >Submit</button>
+    <button type="reset" >Reset</button>
+</form>
+{% endif %}
+</div>
+{% endblock body %}

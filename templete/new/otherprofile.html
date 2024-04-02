@@ -1,0 +1,63 @@
+{% extends 'basic.html'%}
+{% block title %} Tuition Profile view {% endblock %}
+{% block body %}
+
+
+<div class="col-md-6 offset-md-3">
+  <div class="media">
+    <img  src="{{user.userprofile_model.image.url}}" class="w-50 rounded-circle account-img" />
+    <div class="media-body">
+      UserName =  {{user.username}} <br>
+      {% if user.get_full_name%}
+      Full Name = {{user.get_full_name}} 
+      {% endif%}
+  
+
+    </div>
+  </div>
+
+  {% if user.userprofile_model %}
+  <div>
+    <b><h3><legend  class="border-bottom m-4">Personal Information</legend></h3></b>
+    birth_date =  {{user.userprofile_model.birth_date}} <br>
+    gender =  {{user.userprofile_model.gender}} <br>
+    blood_group =  {{user.userprofile_model.blood_group}} <br>
+    address =  {{user.userprofile_model.address}} <br>
+    phone =  {{user.userprofile_model.phone}}<br>
+    nationality =  {{user.userprofile_model.nationality}}<br>
+    religion =  {{user.userprofile_model.religion}}<br>
+    biodata =  {{user.userprofile_model.biodata}}<br>
+    profession =  {{user.userprofile_model.profession}} <br>
+   </div> 
+  {% endif %}
+
+  
+  {% if user.teacher_model %}
+  <div>
+    <b><h3><legend  class="border-bottom m-4">Tuition Related Information</legend></h3></b>
+    name =  {{user.username}} <br>
+    district =  {{user.teacher_model.district}} <br>
+    style =  {{user.teacher_model.style}} <br>
+    place =  {{user.teacher_model.place}} <br>
+    aproach =  {{user.teacher_model.aproach}} <br>
+    medium =  {{user.teacher_model.medium}}<br>
+    salary =  {{user.teacher_model.salary}}<br>
+    days_per_week =  {{user.teacher_model.days_per_week}}<br>
+    education =  {{user.teacher_model.education}}<br>
+    statas =  {{user.teacher_model.statas}} <br>
+    subject_in={% for i in user.teacher_model.subject_in.all %}
+    {{i}}
+    {% if not forloop.last %} , {% endif %}
+    {% endfor %} <br>
+    class_in={% for i in user.teacher_model.class_in.all %}
+    {{i}}
+    {% if not forloop.last %} , {% endif %}
+    {% endfor %} <br>
+  </div>
+  {% endif %}
+</div>
+  
+
+
+  <br><br><br><br><br>
+{% endblock body %}

@@ -1,0 +1,42 @@
+<!DOCTYPEhtml>
+<html>
+    <head>
+        <title>
+            PDF DOWNLOAD
+        </title>
+        <style>
+            body{
+                font-size: 14px;
+            }
+          
+
+
+        </style>
+    </head>
+    <body>
+        <div class="table">
+            <h3 style="text-align:center; color:aqua;font-size:20px;">Contacts</h3>
+            <table style="border-collapse: collapse;">
+                <tr class="head">
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Gmail</th>
+                    <th>Details</th>
+                </tr>
+                {% for item in contact %}
+                <tr class="item">
+                    <td>{{item.name}}</td>
+                    <td>{{item.Phone_number}}</td>
+                    <td>{{item.gmail}}</td>
+                    <td>{{item.text}}</td>
+                </tr>
+
+                {% endfor%}
+
+            </table>
+            <h3 style="text-align: center; color:aqua; font-size:20px;">Jahore IT</h3>
+            <p style="text-align:center; color:blue; font-size:12px;">Thanks for supporting us</p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,197 @@
+{% extends 'basic.html' %}
+
+{% block title %} Details {% endblock %}
+
+{% block body %}
+
+
+
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-center">Details</h5>
+            
+            {% load humanize %}
+            {% load tag %}
+            <div >
+                <img style="width: 200px; height: auto; border-radius: 50%; " src="{{object.image.url}}" />
+            </div> <br>
+            {% if request.user == object.user %}
+            <button class="btn btn-primary my-1"><a style="color:white; text-decoration:none;" href="/post/edit/{{object.id}}"> Edit</a> <br></button> <br>
+            <button class="btn btn-primary my-1"><a style="color:white; text-decoration:none;" href="/post/picadd/{{object.id}}">Add Picture</a><br></button><br>
+           
+            <button type="button" class="btn btn-primary my-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Delete Post
+            </button>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Post</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure delete to the post?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary"><a style="color:wheat; text-decoration:none;" href="/post/delete/{{object.id}}">Delete</a></button>
+                  </div>
+                </div>
+              </div>
+            </div>    
+
+ 
+            {% endif %} <br>
+            Create by : {{object.user.username}} <br>
+            Create Time : {{object.create_at | naturaltime }}
+        
+            <br>
+            Title={{object.title_proper}} <br>
+            salary={{object.salary}} <br>
+            details={{object.details}} <br>
+            district = {{object.district}} <br>
+            catagory={{object.catagory}} <br>
+            medium={{object.middle}} <br>
+            Subject={{object.get_teacher_list}} <br>
+            Class_in={{object.get_student_list}} <br>
+            {{object.total_view}} peoples seen this post <br>
+            {{object.tatal_like}} people likes this post <br>
+
+            <div>
+              <div >
+                <form  method="POST" action="/post/likepost/{{object.id}}">
+                    {% csrf_token %}
+                    {% if liked %}
+                        <button class="btn btn-primary my-1" type="submit">UnLike</button>
+                    {% else %}
+                    <button class="btn btn-white border border-primary my-1" type="submit" ><span class="text-primary">Like</span></button>
+                  
+                    {% endif %}
+                </form>
+            </div>
+            <button class="btn btn-primary my-2"><a style="color: white; text-decoration:none;" href="/post/apply/{{object.id}}">Apply for tuition</a></button>
+            </div>
+
+
+
+
+          
+              <div>
+                  <form action="/post/comment/" method="POST">
+                      {% csrf_token %}
+                      <label for="comment" >Your Comment :</label>
+                      <input type="text" id="comment" name="comment" placeholder="Enter your comment" >
+                      <input type="hidden" name="postid" value="{{object.id}}">
+                      <input type="hidden" name="parentid" value=""> <br>
+                      <button type="submit" class="btn btn-primary">Add Comment</button>
+                  </form>
+              </div>
+              {% for comment in comments %}
+              <div class="row">
+                  <div class="col-md-1">
+                      <img src="{{comment.user.userprofile_model.image.url}}" class="img-thumbnail">
+                  </div>
+                  
+                  <div class="col-md-11">
+                          <b>{{comment.user.username}}</b> <span class="bedge bedge-secondary" > {{comment.create_at | naturaltime}}</span> <br>
+                          {{comment.text}} <br>
+                          <div>
+                              
+                            <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{comment.id}}">
+  Delete Comment
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{comment.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Comment</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure delete to the comment?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"><a style="color:wheat; text-decoration:none;" href="/post/deletecomment/{{comment.id}}">Delete</a></button>
+      </div>
+    </div>
+  </div>
+</div>  
+                          </div>
+                      
+                      <div class="row">
+                          <form action="/post/comment/" method="POST">
+                              {% csrf_token %}
+                              <label for="reply" >Your Reply :</label>
+                              <input type="text" id="reply" name="comment" placeholder="Enter Your Reply" >
+                              <input type="hidden" name="postid" value="{{object.id}}">
+                              <input type="hidden" name="parentid" value="{{comment.id}}"> <br>
+                              <button type="submit" class="btn btn-primary">Add Reply</button>
+                          </form>
+                      </div>
+                      {% for reply in dictofreplay|get_replay:comment.id %}
+                      <div class="row">
+                          <div class="col-md-1">
+                              <img src="{{reply.user.userprofile_model.image.url}}" class="img-thumbnail">
+                          </div>
+                          
+                          <div class="col-md-11">
+                                  <b>{{reply.user.username}}</b> <span class="bedge bedge-secondary" > {{reply.create_at | naturaltime}}</span> <br>
+                                  {{reply.text}} <br>   
+                                  <div>
+                                                                <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{reply.id}}">
+  Delete reply
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{reply.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete reply</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure delete to the reply?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"><a style="color:wheat; text-decoration:none;" href="/post/deletecomment/{{reply.id}}">Delete</a></button>
+      </div>
+    </div>
+  </div>
+</div> 
+                                  </div>                       
+                               
+   
+   
+                          </div>
+                      </div>
+                      {% endfor %}
+                  </div>
+                  
+              </div>
+  
+              {% endfor %}
+          
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+          
+          
+   
+  
+  {% endblock body %}

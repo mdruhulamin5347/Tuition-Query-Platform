@@ -1,0 +1,36 @@
+{% extends 'basic.html' %}
+{% block title %} Search List {% endblock %}
+
+{% block body %}
+
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-center">Search Files</h5><br><br>
+            {% if results %}
+            {% for i in results %}
+            {{i.title}}  <br> Create by {{i.user.username}} : 
+            <a href="/post/details/{{i.id}}"> Read More....</a> <br><br> <hr>
+        
+        {% endfor %}
+        {% else %}
+        <div class="mb-5">
+            <h3 class="text-center">There is no such data here</h3>
+            <h5 class="text-center">Please try again</h5>
+          </div>
+        {% endif %}
+                          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  </div>
+
+  <br><br><br><br>
+
+{% endblock body%}
