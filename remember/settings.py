@@ -150,20 +150,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
-EMAIL_BACKEND= 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'putki972@gmail.com'
-EMAIL_HOST_PASSWORD = 'Mehedi@12'
-EMAIL_PORT= 587
+EMAIL_BackEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'OTF Team <putki972@gmail.com>'
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'putki972@gmail.com'
-EMAIL_HOST_PASSWORD = 'Mehedi@12'
-EMAIL_USE_TLS = True 
+EMAIL_HOST_USER = "expmale@gmail.com"
+EMAIL_HOST_PASSWORD = "your password"
 
 
 django_heroku.settings(locals())
